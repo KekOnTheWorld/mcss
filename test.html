@@ -45,9 +45,6 @@
             background-color: transparent;
             font-size: 20px;
         }
-        input[type=submit] {
-            color: blue;
-        }
     </style>
     <body>
         <script>
@@ -55,11 +52,13 @@
                 const css = document.getElementById("css");
                 const result = document.getElementById("result");
                 const submit = document.getElementById("submit");
-                submit.addEventListener("click", ()=>{
+                css.addEventListener("input", ()=>{
                     let val = css.value;
                     let comp = mcss.compile(val);
-                    result.value = mcss.bits2bytes(comp);
-                    console.log(val.length/mcss.bits2bytes(comp).length);
+                    let bt = mcss.bits2bytes(comp);
+                    result.value = bt;
+                    //console.log(val.length/bt.length);
+                    mcss.decompile(comp);
                     //css.value = mcss.decompile(comp);
                 });
             });
