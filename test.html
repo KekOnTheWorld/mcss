@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MCSS Tester</title>
+        <script src="./mcss.js"></script>
+    </head>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            color: rgb(175, 175, 175);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(22, 22, 22);
+            overflow: hidden;
+        }
+
+        #submit {
+            height: 50px;
+            font-size: 20px;
+            background-color: rgb(12, 12, 12);
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid rgba(131, 131, 131, 0.356);
+            color: white;
+        }
+
+        #css,#result {
+            padding: 20px;
+            height: calc(50% - 25px);
+            resize: none;
+            background-color: transparent;
+            font-size: 20px;
+        }
+        input[type=submit] {
+            color: blue;
+        }
+    </style>
+    <body>
+        <script>
+            window.addEventListener("DOMContentLoaded", ()=>{
+                const css = document.getElementById("css");
+                const result = document.getElementById("result");
+                const submit = document.getElementById("submit");
+                submit.addEventListener("click", ()=>{
+                    let val = css.value;
+                    let comp = mcss.compile(val);
+                    result.value = mcss.bits2bytes(comp);
+                    console.log(val.length/mcss.bits2bytes(comp).length);
+                    //css.value = mcss.decompile(comp);
+                });
+            });
+        </script>
+
+        <textarea name="css" id="css" cols="30" rows="10" spellcheck="false" placeholder="Enter CSS"></textarea>
+        <button id="submit">Compile</button>
+        <textarea name="result" id="result" cols="30" rows="10" spellcheck="false" placeholder="Compiled goes here"></textarea>
+    </body>
+</html>
