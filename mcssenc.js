@@ -1,4 +1,4 @@
-function mcsscompile(css) {
+function mcsscompile(css, dS) {
     let b = [];
     let sS = 0;
     let iS = false;
@@ -62,11 +62,17 @@ function mcsscompile(css) {
             }
         } else {
             if(c === "{") {
+                let ind = (dS||[]).indexOf(css.slice(sS, i).replaceAll(" ", "").replaceAll("\n", ""));
+                if(ind!==-1) {
+                    b = b.concat([0, 0, 0, 0, 0]);
+                    b = b.concat(nb(ind+1, 5));
+                } else {
+                    let enc = es(css.slice(sS, i).replaceAll(" ", "").replaceAll("\n", ""), sc, 6);
+                    b = b.concat(nb(enc.length/6, 5));
+                    b = b.concat(enc);
+                }
                 aSi = 0;
                 iS = true;
-                let enc = es(css.slice(sS, i).replaceAll(" ", "").replaceAll("\n", ""), sc, 6);
-                b = b.concat(nb(enc.length/6, 5));
-                b = b.concat(enc);
                 sS = b.length;
             }
         }

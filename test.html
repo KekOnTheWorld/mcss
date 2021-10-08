@@ -18,17 +18,25 @@
                 const result = document.getElementById("result");
                 const submit = document.getElementById("submit");
                 const theme = document.getElementById("theme");
+                
+                submit.addEventListener("click", ()=>{
+                    let val = css.value;
+                    css.value = val.replaceAll("\n", "").replaceAll(": ", ":").replaceAll("; ", ";");
+                });
+
                 css.addEventListener("input", ()=>{
                     let val = css.value;
 
-                    let comp = mcsscompile(val);
+                    const defaults = ["#css::-webkit-scrollbar,#result::-webkit-scrollbar", "#css,#result", "*", "body", "#submit", "button", "input"];
+
+                    let comp = mcsscompile(val, defaults);
                     let bt = biby(comp);
 
                     result.value = bs(bt);
 
                     console.log(val.length/bt.length);
-                    
-                    theme.innerText = mcssdecompile(bybi(bt));
+
+                    theme.innerText = mcssdecompile(bybi(bt), defaults);
                     console.log(theme.innerText);
                 });
             });

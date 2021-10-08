@@ -1,4 +1,4 @@
-function mcssdecompile(b) {
+function mcssdecompile(b, dS) {
     try {
         const mc = (c)=>("0".repeat(6-c.length)) + c;
         let s;
@@ -9,10 +9,18 @@ function mcssdecompile(b) {
             if(!s) {
                 aI = 0;
                 let l = bn(b.slice(i, i+5))*6;
-                if(l===0) return css;
                 i+=5;
-                s = ds(b.slice(i, i+l), sc, 6);
-                i+=l;
+                if(l===0) {
+                    if(b.slice(i, i+5).length!==5) return css;
+                    let ind = bn(b.slice(i, i+5));
+                    if(dS[ind-1]) {
+                        s = dS[ind-1];
+                        i+=5;
+                    } else return css;
+                } else {
+                    s = ds(b.slice(i, i+l), sc, 6);
+                    i+=l;
+                }
                 aS = bn(b.slice(i, i+5));
                 i+=4;
                 css += s + " { ";
