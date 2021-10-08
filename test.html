@@ -5,61 +5,31 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MCSS Tester</title>
-        <script src="./mcss.js"></script>
+        <script src="./mcss.js" type="text/javascript"></script>
+
+        
+        <style id="theme"></style>
     </head>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            border: none;
-            outline: none;
-            color: rgb(175, 175, 175);
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100vw;
-            background-color: rgb(22, 22, 22);
-            overflow: hidden;
-        }
-
-        #submit {
-            height: 50px;
-            font-size: 20px;
-            background-color: rgb(12, 12, 12);
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
-            border: 1px solid rgba(131, 131, 131, 0.356);
-            color: white;
-        }
-
-        #css,#result {
-            padding: 20px;
-            height: calc(50% - 25px);
-            resize: none;
-            background-color: transparent;
-            font-size: 20px;
-        }
-    </style>
     <body>
         <script>
+
             window.addEventListener("DOMContentLoaded", ()=>{
                 const css = document.getElementById("css");
                 const result = document.getElementById("result");
                 const submit = document.getElementById("submit");
+                const theme = document.getElementById("theme");
                 css.addEventListener("input", ()=>{
                     let val = css.value;
-                    let comp = mcss.compile(val);
-                    let bt = mcss.bits2bytes(comp);
-                    result.value = bt;
-                    //console.log(val.length/bt.length);
-                    mcss.decompile(comp);
-                    //css.value = mcss.decompile(comp);
+
+                    let comp = mcsscompile(val);
+                    let bt = biby(comp);
+
+                    result.value = bs(bt);
+
+                    console.log(val.length/bt.length);
+                    
+                    theme.innerText = mcssdecompile(bybi(bt));
+                    console.log(theme.innerText);
                 });
             });
         </script>
